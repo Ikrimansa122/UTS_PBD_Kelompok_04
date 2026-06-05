@@ -1,38 +1,12 @@
-# UTS_PBD_Kelompok_04
-
 # Sistem Rekap Nilai Praktikum Mahasiswa
 
-## Mata Kuliah
+## Nama Kelompok
 
-**Pemrograman Basis Data**
-
-## Dosen Pengampu
-
-**Abdul Malik, S.Kom., M.Cs.**
+Kelompok 04
 
 ---
 
-# Deskripsi Sistem
-
-Sistem Rekap Nilai Praktikum Mahasiswa merupakan aplikasi basis data sederhana yang dibangun menggunakan **MySQL** melalui **XAMPP/phpMyAdmin**.
-
-Sistem ini digunakan untuk:
-
-* Menyimpan data mahasiswa
-* Menyimpan data dosen
-* Menyimpan data mata kuliah
-* Menyimpan data nilai praktikum mahasiswa
-* Menghitung nilai akhir mahasiswa secara otomatis
-* Menentukan grade nilai
-* Menentukan bobot nilai
-* Menentukan status kelulusan
-* Menyimpan riwayat hasil rekap nilai ke dalam tabel log
-
-Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata kuliah **Pemrograman Basis Data**.
-
----
-
-# Anggota Kelompok
+## Daftar Anggota
 
 | No | Nama                   | NIM       |
 | -- | ---------------------- | --------- |
@@ -44,9 +18,27 @@ Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata
 
 ---
 
-# Struktur Tabel
+## Deskripsi Sistem
 
-## 1. Tabel Mahasiswa
+Sistem Rekap Nilai Praktikum Mahasiswa merupakan aplikasi basis data yang dibuat menggunakan MySQL melalui XAMPP/phpMyAdmin.
+
+Fungsi sistem:
+
+* Menyimpan data mahasiswa
+* Menyimpan data dosen
+* Menyimpan data mata kuliah
+* Menyimpan data nilai praktikum
+* Menghitung nilai akhir mahasiswa
+* Menentukan grade nilai
+* Menentukan bobot nilai
+* Menentukan status kelulusan
+* Menyimpan hasil rekap ke tabel log
+
+---
+
+## Struktur Tabel
+
+### Tabel Mahasiswa
 
 | Field    | Tipe Data    |
 | -------- | ------------ |
@@ -55,11 +47,7 @@ Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata
 | kelas    | VARCHAR(20)  |
 | angkatan | YEAR         |
 
-**Primary Key:** `nim`
-
----
-
-## 2. Tabel Dosen
+### Tabel Dosen
 
 | Field      | Tipe Data    |
 | ---------- | ------------ |
@@ -67,11 +55,7 @@ Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata
 | nama_dosen | VARCHAR(100) |
 | email      | VARCHAR(100) |
 
-**Primary Key:** `kode_dosen`
-
----
-
-## 3. Tabel Mata Kuliah
+### Tabel Mata Kuliah
 
 | Field      | Tipe Data    |
 | ---------- | ------------ |
@@ -81,15 +65,7 @@ Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata
 | semester   | INT          |
 | kode_dosen | VARCHAR(10)  |
 
-**Primary Key:** `kode_mk`
-
-**Foreign Key:**
-
-* `kode_dosen` → `dosen.kode_dosen`
-
----
-
-## 4. Tabel Grade Nilai
+### Tabel Grade Nilai
 
 | Field       | Tipe Data    |
 | ----------- | ------------ |
@@ -98,11 +74,7 @@ Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata
 | nilai_bawah | DECIMAL(5,2) |
 | nilai_atas  | DECIMAL(5,2) |
 
-**Primary Key:** `grade`
-
----
-
-## 5. Tabel Nilai Praktikum
+### Tabel Nilai Praktikum
 
 | Field        | Tipe Data          |
 | ------------ | ------------------ |
@@ -117,17 +89,7 @@ Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata
 | bobot        | DECIMAL(3,2)       |
 | status_lulus | VARCHAR(20)        |
 
-**Primary Key:** `id_nilai`
-
-**Foreign Key:**
-
-* `nim` → `mahasiswa.nim`
-* `kode_mk` → `mata_kuliah.kode_mk`
-* `grade` → `grade_nilai.grade`
-
----
-
-## 6. Tabel Log Rekap Nilai
+### Tabel Log Rekap Nilai
 
 | Field        | Tipe Data          |
 | ------------ | ------------------ |
@@ -141,184 +103,23 @@ Proyek ini dibuat untuk memenuhi tugas **Ujian Tengah Semester (UTS)** pada mata
 | keterangan   | VARCHAR(255)       |
 | waktu_proses | DATETIME           |
 
-**Primary Key:** `id_log`
-
 ---
 
-# Relasi Antar Tabel
+## Cara Menjalankan Program
 
-```text
-DOSEN
-  |
-  | 1 : N
-  v
-MATA_KULIAH
-  |
-  | 1 : N
-  v
-NILAI_PRAKTIKUM
- ^            ^
- |            |
- | N : 1      | N : 1
- |            |
-MAHASISWA   GRADE_NILAI
-
-NILAI_PRAKTIKUM --> LOG_REKAP_NILAI
-```
-
----
-
-# Rumus Perhitungan Nilai Akhir
-
-```sql
-nilai_akhir =
-(nilai_tugas * 0.30) +
-(nilai_kuis * 0.30) +
-(nilai_uts * 0.40)
-```
-
-### Contoh Perhitungan
-
-```text
-Nilai Tugas : 80
-Nilai Kuis  : 85
-Nilai UTS   : 90
-```
-
-Hasil:
-
-```text
-Nilai Akhir : 85.50
-Grade       : A-
-Bobot       : 3.75
-Status      : LULUS
-```
-
----
-
-# Daftar Stored Procedure
-
-## 1. rekap_semua_nilai()
-
-### Fungsi
-
-* Menghitung nilai akhir seluruh mahasiswa
-* Menentukan grade
-* Menentukan bobot nilai
-* Menentukan status kelulusan
-* Menyimpan hasil rekap ke tabel `log_rekap_nilai`
-
-### Pemanggilan
-
-```sql
-CALL rekap_semua_nilai();
-```
-
----
-
-## 2. rekap_nilai_per_mk()
-
-### Fungsi
-
-* Menghitung nilai mahasiswa berdasarkan mata kuliah tertentu
-* Menggunakan parameter kode mata kuliah
-
-### Pemanggilan
-
-```sql
-CALL rekap_nilai_per_mk('MK001');
-```
-
----
-
-# Konsep Pemrograman Basis Data yang Digunakan
-
-## 1. Variabel
-
-Digunakan untuk menyimpan sementara nilai tugas, nilai kuis, nilai UTS, dan nilai akhir mahasiswa.
-
-## 2. Percabangan
-
-Menggunakan:
-
-```sql
-IF
-ELSEIF
-ELSE
-```
-
-atau
-
-```sql
-CASE
-```
-
-untuk menentukan grade, bobot nilai, dan status kelulusan.
-
-## 3. Perulangan
-
-Menggunakan:
-
-```sql
-LOOP
-WHILE
-REPEAT
-```
-
-untuk memproses data mahasiswa secara berulang.
-
-## 4. Implicit Cursor
-
-Menggunakan:
-
-```sql
-ROW_COUNT();
-```
-
-untuk mengetahui jumlah data yang berhasil diproses.
-
-## 5. Explicit Cursor
-
-Menggunakan:
-
-```sql
-DECLARE CURSOR
-OPEN
-FETCH
-CLOSE
-```
-
-untuk membaca data pada tabel `nilai_praktikum` satu per satu.
-
-## 6. Cursor dengan Parameter
-
-Menggunakan parameter:
-
-```sql
-kode_mk
-```
-
-untuk memfilter mata kuliah yang akan direkap.
-
----
-
-# Cara Menjalankan Program
-
-## 1. Membuat Database
+### 1. Membuat Database
 
 ```sql
 CREATE DATABASE uts_pbd_kelompok_04;
 ```
 
-## 2. Mengimpor File
+### 2. Import File
 
-Import file berikut:
+* database.sql
+* data_awal.sql
+* procedure_rekap_nilai.sql
 
-* `database.sql`
-* `data_awal.sql`
-* `procedure_rekap_nilai.sql`
-
-## 3. Menjalankan Query Pengujian
+### 3. Jalankan Query Pengujian
 
 ```sql
 SELECT * FROM mahasiswa;
@@ -329,7 +130,7 @@ SELECT * FROM nilai_praktikum;
 SELECT * FROM log_rekap_nilai;
 ```
 
-## 4. Menjalankan Stored Procedure
+### 4. Jalankan Stored Procedure
 
 ```sql
 CALL rekap_semua_nilai();
@@ -343,9 +144,53 @@ CALL rekap_nilai_per_mk('MK001');
 
 ---
 
-# Screenshot Hasil Program
+## Daftar Stored Procedure
 
-Lampirkan screenshot berikut:
+### 1. rekap_semua_nilai()
+
+Fungsi:
+
+* Menghitung nilai akhir seluruh mahasiswa
+* Menentukan grade
+* Menentukan bobot
+* Menentukan status kelulusan
+* Menyimpan hasil ke log rekap nilai
+
+Pemanggilan:
+
+```sql
+CALL rekap_semua_nilai();
+```
+
+### 2. rekap_nilai_per_mk()
+
+Fungsi:
+
+* Rekap nilai berdasarkan mata kuliah tertentu
+
+Pemanggilan:
+
+```sql
+CALL rekap_nilai_per_mk('MK001');
+```
+
+---
+
+## Pembagian Tugas Anggota
+
+| Anggota                 | Tugas                                       |
+| ---------               | ------------------------------------------- |
+| Ikrimansa               | Database, tabel, relasi, data awal          |
+| Aulia                   | Variabel dan perhitungan nilai akhir        |
+| Nadya Pratiwi Riswanto  | Percabangan, grade, bobot, status kelulusan |
+| Magfakhrani Nur Fauzia  | Cursor dan log rekap nilai                  |
+|Tiara Nuriani            | Dokumentasi, GitHub, laporan dan pengujian  |
+
+---
+
+## Screenshot Hasil Program
+
+Tambahkan screenshot berikut:
 
 1. Struktur Database
 2. Struktur Tabel
@@ -357,23 +202,3 @@ Lampirkan screenshot berikut:
 8. Hasil Stored Procedure
 9. Tabel Log Rekap Nilai
 10. Relasi Antar Tabel
-
----
-
-# Pembagian Tugas Kelompok
-
-| Anggota   | Tanggung Jawab                                             |
-| --------- | ---------------------------------------------------------- |
-| Anggota 1 | Pembuatan database, tabel, relasi, dan data awal           |
-| Anggota 2 | Variabel dan perhitungan nilai akhir                       |
-| Anggota 3 | Percabangan grade, bobot, status kelulusan, dan perulangan |
-| Anggota 4 | Cursor dan log rekap nilai                                 |
-| Anggota 5 | Dokumentasi, laporan, GitHub, dan pengujian program        |
-
----
-
-# Kesimpulan
-
-Proyek **Sistem Rekap Nilai Praktikum Mahasiswa** berhasil dikembangkan menggunakan MySQL dengan menerapkan berbagai konsep Pemrograman Basis Data, seperti variabel, percabangan, perulangan, implicit cursor, explicit cursor, cursor dengan parameter, serta stored procedure.
-
-Sistem mampu menghitung nilai akhir mahasiswa secara otomatis, menentukan grade dan bobot nilai, menetapkan status kelulusan, serta menyimpan riwayat hasil rekap nilai ke dalam tabel log. Dengan demikian, proses pengolahan nilai praktikum menjadi lebih cepat, akurat, dan terstruktur.

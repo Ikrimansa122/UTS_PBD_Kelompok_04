@@ -1,5 +1,13 @@
 # Sistem Rekap Nilai Praktikum Mahasiswa
 
+## Mata Kuliah
+
+Pemrograman Basis Data
+
+## Dosen Pengampu
+
+Abdul Malik, S.Kom., M.Cs.
+
 ## Nama Kelompok
 
 Kelompok 04
@@ -14,7 +22,7 @@ Kelompok 04
 | 2  | Aulia                  | IK2411008 |
 | 3  | Tiara Nuriani          | IK2411024 |
 | 4  | Nadya Pratiwi Riswanto | IK2411049 |
-| 5  | Magfakhrani            | IK2411050 |
+| 5  | Magfakhrani Nur Fauzia | IK2411050 |
 
 ---
 
@@ -40,68 +48,56 @@ Fungsi sistem:
 
 ### Tabel Mahasiswa
 
-| Field    | Tipe Data    |
-| -------- | ------------ |
-| nim      | VARCHAR(15)  |
-| nama     | VARCHAR(100) |
-| kelas    | VARCHAR(20)  |
-| angkatan | YEAR         |
+* nim (VARCHAR(15))
+* nama (VARCHAR(100))
+* kelas (VARCHAR(20))
+* angkatan (YEAR)
 
 ### Tabel Dosen
 
-| Field      | Tipe Data    |
-| ---------- | ------------ |
-| kode_dosen | VARCHAR(10)  |
-| nama_dosen | VARCHAR(100) |
-| email      | VARCHAR(100) |
+* kode_dosen (VARCHAR(10))
+* nama_dosen (VARCHAR(100))
+* email (VARCHAR(100))
 
 ### Tabel Mata Kuliah
 
-| Field      | Tipe Data    |
-| ---------- | ------------ |
-| kode_mk    | VARCHAR(10)  |
-| nama_mk    | VARCHAR(100) |
-| sks        | INT          |
-| semester   | INT          |
-| kode_dosen | VARCHAR(10)  |
+* kode_mk (VARCHAR(10))
+* nama_mk (VARCHAR(100))
+* sks (INT)
+* semester (INT)
+* kode_dosen (VARCHAR(10))
 
 ### Tabel Grade Nilai
 
-| Field       | Tipe Data    |
-| ----------- | ------------ |
-| grade       | VARCHAR(2)   |
-| bobot       | DECIMAL(3,2) |
-| nilai_bawah | DECIMAL(5,2) |
-| nilai_atas  | DECIMAL(5,2) |
+* grade (VARCHAR(2))
+* bobot (DECIMAL(3,2))
+* nilai_bawah (DECIMAL(5,2))
+* nilai_atas (DECIMAL(5,2))
 
 ### Tabel Nilai Praktikum
 
-| Field        | Tipe Data          |
-| ------------ | ------------------ |
-| id_nilai     | INT AUTO_INCREMENT |
-| nim          | VARCHAR(15)        |
-| kode_mk      | VARCHAR(10)        |
-| nilai_tugas  | DECIMAL(5,2)       |
-| nilai_kuis   | DECIMAL(5,2)       |
-| nilai_uts    | DECIMAL(5,2)       |
-| nilai_akhir  | DECIMAL(5,2)       |
-| grade        | VARCHAR(2)         |
-| bobot        | DECIMAL(3,2)       |
-| status_lulus | VARCHAR(20)        |
+* id_nilai (INT AUTO_INCREMENT)
+* nim (VARCHAR(15))
+* kode_mk (VARCHAR(10))
+* nilai_tugas (DECIMAL(5,2))
+* nilai_kuis (DECIMAL(5,2))
+* nilai_uts (DECIMAL(5,2))
+* nilai_akhir (DECIMAL(5,2))
+* grade (VARCHAR(2))
+* bobot (DECIMAL(3,2))
+* status_lulus (VARCHAR(20))
 
 ### Tabel Log Rekap Nilai
 
-| Field        | Tipe Data          |
-| ------------ | ------------------ |
-| id_log       | INT AUTO_INCREMENT |
-| nim          | VARCHAR(15)        |
-| kode_mk      | VARCHAR(10)        |
-| nilai_akhir  | DECIMAL(5,2)       |
-| grade        | VARCHAR(2)         |
-| bobot        | DECIMAL(3,2)       |
-| status_lulus | VARCHAR(20)        |
-| keterangan   | VARCHAR(255)       |
-| waktu_proses | DATETIME           |
+* id_log (INT AUTO_INCREMENT)
+* nim (VARCHAR(15))
+* kode_mk (VARCHAR(10))
+* nilai_akhir (DECIMAL(5,2))
+* grade (VARCHAR(2))
+* bobot (DECIMAL(3,2))
+* status_lulus (VARCHAR(20))
+* keterangan (VARCHAR(255))
+* waktu_proses (DATETIME)
 
 ---
 
@@ -118,6 +114,7 @@ CREATE DATABASE uts_pbd_kelompok_04;
 * database.sql
 * data_awal.sql
 * procedure_rekap_nilai.sql
+* query_pengujian.sql
 
 ### 3. Jalankan Query Pengujian
 
@@ -152,39 +149,27 @@ Fungsi:
 
 * Menghitung nilai akhir seluruh mahasiswa
 * Menentukan grade
-* Menentukan bobot
+* Menentukan bobot nilai
 * Menentukan status kelulusan
-* Menyimpan hasil ke log rekap nilai
-
-Pemanggilan:
-
-```sql
-CALL rekap_semua_nilai();
-```
+* Menyimpan hasil rekap ke tabel log
 
 ### 2. rekap_nilai_per_mk()
 
 Fungsi:
 
-* Rekap nilai berdasarkan mata kuliah tertentu
-
-Pemanggilan:
-
-```sql
-CALL rekap_nilai_per_mk('MK001');
-```
+* Menghitung dan merekap nilai berdasarkan mata kuliah tertentu menggunakan parameter kode mata kuliah.
 
 ---
 
 ## Pembagian Tugas Anggota
 
-| Anggota                 | Tugas                                       |
-| ---------               | ------------------------------------------- |
-| Ikrimansa               | Database, tabel, relasi, data awal          |
-| Aulia                   | Variabel dan perhitungan nilai akhir        |
-| Nadya Pratiwi Riswanto  | Percabangan, grade, bobot, status kelulusan |
-| Magfakhrani Nur Fauzia  | Cursor dan log rekap nilai                  |
-|Tiara Nuriani            | Dokumentasi, GitHub, laporan dan pengujian  |
+| Nama Anggota           | Tugas                                           |
+| ---------------------- | ----------------------------------------------- |
+| Ikrimansa              | Database, tabel, relasi, dan data awal          |
+| Aulia                  | Variabel dan perhitungan nilai akhir            |
+| Nadya Pratiwi Riswanto | Percabangan, grade, bobot, dan status kelulusan |
+| Magfakhrani Nur Fauzia | Cursor dan log rekap nilai                      |
+| Tiara Nuriani          | Dokumentasi, GitHub, laporan, dan pengujian     |
 
 ---
 
@@ -202,3 +187,5 @@ Tambahkan screenshot berikut:
 8. Hasil Stored Procedure
 9. Tabel Log Rekap Nilai
 10. Relasi Antar Tabel
+
+---

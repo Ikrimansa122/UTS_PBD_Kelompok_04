@@ -165,10 +165,10 @@ Fungsi:
 
 | Nama Anggota           | Tugas                                           |
 | ---------------------- | ----------------------------------------------- |
-| Ikrimansa              | Database, tabel, relasi, dan data awal          |
-| Aulia                  | Variabel dan perhitungan nilai akhir            |
+| Aulia                  | Database, tabel, relasi, dan data awal          |
+| Magfakhrani Nur Fauzia | Variabel dan perhitungan nilai akhir            |
 | Nadya Pratiwi Riswanto | Percabangan, grade, bobot, dan status kelulusan |
-| Magfakhrani Nur Fauzia | Cursor dan log rekap nilai                      |
+| Ikrimansa              | Cursor dan log rekap nilai                      |
 | Tiara Nuriani          | Dokumentasi, GitHub, laporan, dan pengujian     |
 
 ---
